@@ -23,7 +23,7 @@ def load_data():
     con = duckdb.connect(f"md:?motherduck_token={MOTHERDUCK_TOKEN}")
     df = con.execute("""
         SELECT *
-        FROM cse6242group144.sankey_data
+        FROM cse6242group144.sankey_data_cand
         limit 1000
     """).df()
 
@@ -44,7 +44,7 @@ def clean_name(name):
         return f"{first} {last}"
     return str(name).title()
 
-df['CAND_NAME_CLEAN'] = df['NAME'].apply(clean_name)
+df['CAND_NAME_CLEAN'] = df['CAND_NAME'].apply(clean_name)
 df['AMOUNT'] = pd.to_numeric(df['AMOUNT'], errors='coerce')
 
 # Map entity types
