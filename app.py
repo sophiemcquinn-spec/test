@@ -56,6 +56,26 @@ entity_map = {
 }
 df['ENTITY_LABEL'] = df['ENTITY_TP'].map(entity_map).fillna('Other')
 
+#affiliated party map
+party_map = {
+    'DEM': 'Democratic Party',
+    'GRE': 'Green Party',
+    'IAP': 'Independent American Party',
+    'NULL': 'N/A',
+    'NPA': 'No Party Affiliation',
+    'CON': 'Constitution Party',
+    'REP': 'Republican Party',
+    'UN': 'Unaffiliated',
+    'AIP': 'American Independent Party',
+    'IDP': 'Independence Party',
+    'IND': 'Independent',
+    'DFL': 'Democratic-Farmer-Labor',
+    'LIB': 'Libertarian Party',
+    'W': 'Write-In',
+    'OTH': 'Other'    
+}
+df['PARTY'] = df['CAND_PTY_AFFILIATION'].map(party_map).fillna('Other')
+
 # Sidebar for filters
 st.sidebar.header("Filters")
 
@@ -109,26 +129,6 @@ with col3:
 #with col4:
 #    max_val = filtered_df['AMOUNT'].max() if len(filtered_df) > 0 else 0
 #    st.metric("Largest Transaction", f"${max_val:,.0f}")
-
-#affiliated party map
-party_map = {
-    'DEM': 'Democratic Party',
-    'GRE': 'Green Party',
-    'IAP': 'Independent American Party',
-    'NULL': 'N/A',
-    'NPA': 'No Party Affiliation',
-    'CON': 'Constitution Party',
-    'REP': 'Republican Party',
-    'UN': 'Unaffiliated',
-    'AIP': 'American Independent Party',
-    'IDP': 'Independence Party',
-    'IND': 'Independent',
-    'DFL': 'Democratic-Farmer-Labor',
-    'LIB': 'Libertarian Party',
-    'W': 'Write-In',
-    'OTH': 'Other'    
-}
-df['PARTY'] = df['CAND_PTY_AFFILIATION'].map(party_map).fillna('Other')
 
 with col4:
     party = filtered_df['PARTY'].dropna().iloc[0] if len(filtered_df) > 0 else "N/A"
